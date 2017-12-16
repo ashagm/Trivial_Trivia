@@ -1,9 +1,9 @@
 body{
 	position: relative;
 	background: url('../images/bg.jpg');
-	max-width: 100%;
+	/*max-width: 100%;*/
 /*	max-height: 100%;*/
-	background-size: scroll;
+	background-size: 110% 100%;
 	background-repeat: no-repeat;
 	font-family: 'Itim', cursive;
 	font-weight: 300;

@@ -2,7 +2,7 @@ var questionBank = [
 
 	{	
 		id: 0,
-		qn: "'What country has more volcanoes than any other??",
+		qn: "Which country has more volcanoes than any other??",
 		ans: ["Indonesia", "Iceland", "China", "New Zealand" ],
 		ansIndex: 0,		
 	},
@@ -49,6 +49,12 @@ var questionBank = [
 		qn: "Which city in India is Taj Mahal located?",
 		ans: ["Delhi", "Mumbai", "Agra", "Jaipur"],
 		ansIndex: 2,
+	},
+	{
+		id: 8,
+		qn: "Which country was the region of Persian civilization?",
+		ans: ["Iraq", "Syria", "Pakistan", "Iran"],
+		ansIndex: 3,
 	},
 
 
