@@ -44,6 +44,12 @@ var questionBank = [
 		ans: ["China", "Australia", "India", "South Africa"],
 		ansIndex: 2,
 	},
+	{
+		id: 7,
+		qn: "Which city in India is Taj Mahal located?",
+		ans: ["Delhi", "Mumbai", "Agra", "Jaipur"],
+		ansIndex: 2,
+	},
 
 
 ]

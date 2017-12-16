@@ -2,22 +2,25 @@ $(document).ready(function(){
 
 var triviaGame = {
 
+	correctCount : 0,
+	incorrectCount : 0,
+
 
 	init : function(){
 
-		for(var i=0; i< questionBank.length; i++){
+		for(var index=0; index< questionBank.length; index++){
 
 			let qnDivSection = $('<div>');
 			qnDivSection.attr("class", "col-md-12 div-qa");
-			qnDivSection.attr("data-id", questionBank[i].id);
+			qnDivSection.attr("data-id", questionBank[index].id);
 
 			let qnaInformation =
 
-			'<h4 class="qn">' + questionBank[i].qn + '</h4><p>' +
-			'<span class="ans">' + questionBank[i].ans[0] + '</span>' + 
-			'<span class="ans">' + questionBank[i].ans[1] + '</span>'+ 
-			'<span class="ans">' + questionBank[i].ans[2] + '</span>' + 
-			'<span class="ans">' + questionBank[i].ans[3] + '</span></p>';
+			'<h4 class="qn">' + questionBank[index].qn + '</h4><p>' +
+			'<span class="ans">' + questionBank[index].ans[0] + '</span>' + 
+			'<span class="ans">' + questionBank[index].ans[1] + '</span>'+ 
+			'<span class="ans">' + questionBank[index].ans[2] + '</span>' + 
+			'<span class="ans">' + questionBank[index].ans[3] + '</span></p>';
 
 			qnDivSection.html(qnaInformation);
 
@@ -27,7 +30,9 @@ var triviaGame = {
 	}
 }
 
-
+$('.data-id').on('click',function(){
+	console.log($(this).data());
+})
 
 
 function checkAnswer(qn, ans){

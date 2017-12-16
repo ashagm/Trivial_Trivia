@@ -42,12 +42,13 @@ body{
 }
 
 .row-main{
-	margin-bottom: 60px;
+	margin-bottom: 20px;
 }
 
 .qn{
 	color: #fff;
 	margin-bottom: 10px;
+	font-size: 28px;
 }
 
 .ans {
@@ -55,7 +56,7 @@ body{
 	color: #000;
 	font-size : 20px;
 	padding: 5px 10px;
-	margin: 5px;
+	margin: 10px;
 	border: 1px solid #000;
 }
 
@@ -68,16 +69,18 @@ body{
 
 .submitA{
     width: 150px;
+    font-family: 'Itim', cursive;
     background-color: #000;
     color: #fff;
     padding: 10px 20px;
     font-size: 20px;
     text-align: center;
     opacity: 0.5;
-    position: absolute;
+    border: 2px solid #fff;
+    border-radius: 20px
 }
 
 #footer{
 	color : #fff;
-
+	margin-top: 70px;
 }
