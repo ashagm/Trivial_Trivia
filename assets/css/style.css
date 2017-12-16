@@ -1,0 +1,83 @@
+body{
+	position: relative;
+	background: url('../images/bg.jpg');
+	max-width: 100%;
+/*	max-height: 100%;*/
+	background-size: scroll;
+	background-repeat: no-repeat;
+	font-family: 'Itim', cursive;
+	font-weight: 300;
+}
+
+.h1{
+	font-size : 80px;
+}
+
+.jumbotron{
+	background-color: transparent;
+	padding: 5px;
+	margin-bottom: 50px;
+	
+}
+
+.timer{
+	color: #fff;
+	background-color: #000;
+	padding: 5px;
+	width: 130px;
+	font-size: 40px;
+	position: absolute;
+	left: 500px;
+	opacity: .7;
+
+}
+
+.div-qa{
+	background-color: #000;
+	opacity: 0.5;
+	border-radius: 10px;
+	padding: 10px;
+	text-align: center;
+	margin: 10px;
+}
+
+.row-main{
+	margin-bottom: 60px;
+}
+
+.qn{
+	color: #fff;
+	margin-bottom: 10px;
+}
+
+.ans {
+	background-color: #fff;
+	color: #000;
+	font-size : 20px;
+	padding: 5px 10px;
+	margin: 5px;
+	border: 1px solid #000;
+}
+
+.ans:hover{
+	filter: drop-shadow(0.063em 0.063em 0em red);
+    border: 1px solid #red;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submitA{
+    width: 150px;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-align: center;
+    opacity: 0.5;
+    position: absolute;
+}
+
+#footer{
+	color : #fff;
+
+}
