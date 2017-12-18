@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
 let intervalId;
 let clockRunning = false;
 
@@ -9,14 +8,11 @@ const stopwatch = {
   time: 120,
 
   reset: function() {
-
     stopwatch.time = 120;
     $("#display").text("2:00");
-
   },
 
   start: function() {
-
     if (!clockRunning) {
         intervalId = setInterval(stopwatch.count, 1000);
         clockRunning = true;
@@ -24,16 +20,13 @@ const stopwatch = {
   },
 
   stop: function() {
-
     clearInterval(intervalId);
     clockRunning = false;
   },
 
   count: function() {
-
     stopwatch.time--;
     const converted = stopwatch.timeConverter(stopwatch.time);
-    // console.log(converted);
 
     $("#display").text(converted);
 
@@ -44,7 +37,6 @@ const stopwatch = {
   },
 
   timeConverter: function(t) {
-
     let minutes = Math.floor(t / 60);
     let seconds = t - (minutes * 60);
 
@@ -62,8 +54,6 @@ const stopwatch = {
     return minutes + ":" + seconds;
   }
 };
-	
-
 
 var triviaGame = {
 
@@ -71,7 +61,10 @@ var triviaGame = {
 	incorrectCount : 0,
 	unansweredCount : questionBank.length,
 
-	checkAnswers : function(selectedAns, correctAns){
+	checkAnswers : function(questionId, selectedAns){
+
+		let correctAns = questionBank[questionId].ansIndex;
+
 		if(selectedAns === correctAns){
 			this.correctCount++;
 		}else{
@@ -84,6 +77,7 @@ var triviaGame = {
 	},
 
 	getResults : function(){
+		console.log("getresults");
 		return "<h4> Correct Answers : " + this.correctCount + "</h4>" + 
 		"<h4> Incorrect Answers : " + this.incorrectCount + "</h4>" + 
 		"<h4> Unanswered Questions : " + this.unansweredCount + "</h4>";
@@ -91,41 +85,34 @@ var triviaGame = {
 
 	init : function(){
 
-	for(var index = 0; index < questionBank.length; index++){
+		for(var index = 0; index < questionBank.length; index++){
 
-		let qnDivSection = $('<div>');
-		qnDivSection.attr("class", "col-md-12 div-qa");
-		qnDivSection.attr("data-id", questionBank[index].id);
+			let qnDivSection = $('<div>');
+			qnDivSection.attr("class", "col-md-12 div-qa");
+			// qnDivSection.attr("data-id", questionBank[index].id);
 
-		let qnaInformation =
+			let qnaInformation =
 
-		'<h4 class="qn">' + questionBank[index].qn + '</h4>';
+			// '<h4 class="qn">' + questionBank[index].qn + '</h4>';
 
-		for (var i = 0; i < 4; i++)
-		{
-			qnaInformation += "<span class='ans'><input type='radio' name='ans-radio' data-aid=" + i + ">&nbsp;&nbsp;&nbsp;" +  questionBank[index].ans[i] + "</span>";
+			"<h4 class='qn'" + "data-id=" + questionBank[index].id + ">" + questionBank[index].qn + '</h4>';
+
+			for (var i = 0; i < 4; i++)
+			{
+				qnaInformation += "<span class='ans'><input type='radio' name='ans-radio-" + index + "' data-aid=" + i + ">&nbsp;&nbsp;&nbsp;" +  questionBank[index].ans[i] + "</span>";
+			}
+
+			qnDivSection.html(qnaInformation);
+			$(".row-main").append(qnDivSection);
 		}
-
-		qnDivSection.html(qnaInformation);
-		$(".row-main").append(qnDivSection);
-	}
 },
 
 	reset: function(){
 		this.correctCount = 0;
 		this.incorrectCount = 0;
 		this.unansweredCount = questionBank.length;
-
 	}
 };
-
-
-// if(!stopwatch.count()){
-// 	$("#resultsModal").modal('show');
-// 	$('.results-body').html(triviaGame.getResults());
-
-// }
-
 
 $('.submitA').on('click', function(){
 	stopwatch.stop();
@@ -135,16 +122,27 @@ $('.submitA').on('click', function(){
 
 $('#wrapper').on( 'click', '.ans', function() {
 
-	$thisSpan = $(this);  // (to learn - event delegataion)
-	
+	$thisSpan = $(this);  // (to learn - event delegataion)	
 	let selectedAns = $thisSpan.children().data('aid');
-	let questionId = $thisSpan.parent().data('id');
-	let correctAns = questionBank[questionId].ansIndex;
+	// let questionId = $thisSpan.parent().data('id');
 
-	triviaGame.checkAnswers(selectedAns, correctAns);
+	let questionId = $thisSpan.siblings("h4").data('id');
+	// let correctAns = questionBank[questionId].ansIndex;
+
+	triviaGame.checkAnswers(questionId, selectedAns);
 
 });
 
+function results(){
+	alert('results');
+}
+
+setTimeout(function(){
+	stopwatch.stop();
+	let returnVal = triviaGame.getResults.bind(triviaGame);
+	$('.results-body').html(returnVal);
+	$('#resultsModal').modal('show');
+}, 1000 * 120);
 
 triviaGame.init();
 stopwatch.start();
