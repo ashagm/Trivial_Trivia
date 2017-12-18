@@ -89,11 +89,8 @@ var triviaGame = {
 
 			let qnDivSection = $('<div>');
 			qnDivSection.attr("class", "col-md-12 div-qa");
-			// qnDivSection.attr("data-id", questionBank[index].id);
 
 			let qnaInformation =
-
-			// '<h4 class="qn">' + questionBank[index].qn + '</h4>';
 
 			"<h4 class='qn'" + "data-id=" + questionBank[index].id + ">" + questionBank[index].qn + '</h4>';
 
@@ -121,21 +118,11 @@ $('.submitA').on('click', function(){
 });
 
 $('#wrapper').on( 'click', '.ans', function() {
-
 	$thisSpan = $(this);  // (to learn - event delegataion)	
 	let selectedAns = $thisSpan.children().data('aid');
-	// let questionId = $thisSpan.parent().data('id');
-
 	let questionId = $thisSpan.siblings("h4").data('id');
-	// let correctAns = questionBank[questionId].ansIndex;
-
 	triviaGame.checkAnswers(questionId, selectedAns);
-
 });
-
-function results(){
-	alert('results');
-}
 
 setTimeout(function(){
 	stopwatch.stop();
