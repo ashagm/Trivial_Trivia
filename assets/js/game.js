@@ -118,8 +118,12 @@ function reset(){
 	correctCount = 0;
 	incorrectCount = 0;
 	unansweredCount = questionBank.length;
+
 	stopwatch.reset();
-	stopwatch.start();
+	setTimeout(stopwatch.start, 2000);
+
+	//reset radio buttons
+	$('input[type="radio"]').prop('checked', false);
 }
 
 $('#wrapper').on( 'click', '.ans', function() {
@@ -151,13 +155,13 @@ $('.submitA').on('click', function(){
 });
 
 $('#replay').on('click', function(){
-	reset();
+	init();
 });
 
 setTimeout(function(){
-	stopwatch.stop();
-	
-	let returnVal = triviaGame.getResults.bind(triviaGame);
+	stopwatch.stop();	
+	// let returnVal = triviaGame.getResults.bind(triviaGame);
+	let returnVal = displayResults();
 	$('.results-body').html(returnVal);
 	$('#resultsModal').modal('show');
 }, 1000 * 120);
