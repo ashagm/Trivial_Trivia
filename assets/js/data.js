@@ -36,7 +36,7 @@ var questionBank = [
 		id: 5,
 		qn: "Which country has the famous 'Black forest'?",
 		ans: ["Austria", "Netherlands", "France", "Germany"],
-		ansIndex: 2,
+		ansIndex: 3,
 	},
 	{
 		id: 6,

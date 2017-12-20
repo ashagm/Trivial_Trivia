@@ -54,84 +54,115 @@ const stopwatch = {
     return minutes + ":" + seconds;
   }
 };
+	
 
-var triviaGame = {
+let answeredCountArr=[];
+let correctCount = 0;
+let incorrectCount = 0;
+let unansweredCount = 0;
 
-	correctCount : 0,
-	incorrectCount : 0,
-	unansweredCount : questionBank.length,
 
-	checkAnswers : function(questionId, selectedAns){
+function getResults(){
 
-		let correctAns = questionBank[questionId].ansIndex;
+	for(let i = 0; i < answeredCountArr.length; i++){
+		let qid = answeredCountArr[i].id;
 
-		if(selectedAns === correctAns){
-			this.correctCount++;
+		let ans = answeredCountArr[i].ans;
+		let rightAns = questionBank[qid].ansIndex;
+
+		if(ans === rightAns){
+			correctCount++;
 		}else{
-			this.incorrectCount++;
+			incorrectCount++;
 		}
 
-		this.unansweredCount = questionBank.length - (this.correctCount + this.incorrectCount);
+		unansweredCount = questionBank.length - answeredCountArr.length;
 
-		console.log("correct=", this.correctCount, "incorrect=", this.incorrectCount, "unanswered=", this.unansweredCount);
-	},
-
-	getResults : function(){
-		console.log("getresults");
-		return "<h4> Correct Answers : " + this.correctCount + "</h4>" + 
-		"<h4> Incorrect Answers : " + this.incorrectCount + "</h4>" + 
-		"<h4> Unanswered Questions : " + this.unansweredCount + "</h4>";
-	},
-
-	init : function(){
-
-		for(var index = 0; index < questionBank.length; index++){
-
-			let qnDivSection = $('<div>');
-			qnDivSection.attr("class", "col-md-12 div-qa");
-
-			let qnaInformation =
-
-			"<h4 class='qn'" + "data-id=" + questionBank[index].id + ">" + questionBank[index].qn + '</h4>';
-
-			for (var i = 0; i < 4; i++)
-			{
-				qnaInformation += "<span class='ans'><input type='radio' name='ans-radio-" + index + "' data-aid=" + i + ">&nbsp;&nbsp;&nbsp;" +  questionBank[index].ans[i] + "</span>";
-			}
-
-			qnDivSection.html(qnaInformation);
-			$(".row-main").append(qnDivSection);
-		}
-},
-
-	reset: function(){
-		this.correctCount = 0;
-		this.incorrectCount = 0;
-		this.unansweredCount = questionBank.length;
 	}
-};
 
-$('.submitA').on('click', function(){
-	stopwatch.stop();
-	let results = triviaGame.getResults();
+	return 	"<h4> Correct Answers : " + correctCount + "</h4>" + 
+			"<h4> Incorrect Answers : " + incorrectCount + "</h4>" + 
+			"<h4> Unanswered Questions : " + unansweredCount + "</h4>";		
+}
+
+
+function displayResults(){
+	let results = getResults();
 	$('.results-body').html(results);
-});
+}
+
+function init(){
+
+	reset();
+
+	for(var index = 0; index < questionBank.length; index++){
+
+		let qnDivSection = $('<div>');
+		qnDivSection.attr("class", "col-md-12 div-qa");
+
+		let qnaInformation =
+
+		"<h4 class='qn'" + "data-id=" + questionBank[index].id + ">" + questionBank[index].qn + '</h4>';
+
+		for (var i = 0; i < 4; i++)
+		{
+			qnaInformation += "<span class='ans'><input type='radio' name='ans-radio-" + index + "' data-aid=" + i + ">&nbsp;&nbsp;&nbsp;" +  questionBank[index].ans[i] + "</span>";
+		}
+
+		qnDivSection.html(qnaInformation);
+		$(".row-main").append(qnDivSection);
+	}
+}
+
+function reset(){
+	correctCount = 0;
+	incorrectCount = 0;
+	unansweredCount = questionBank.length;
+	stopwatch.reset();
+	stopwatch.start();
+}
 
 $('#wrapper').on( 'click', '.ans', function() {
 	$thisSpan = $(this);  // (to learn - event delegataion)	
+	
+	//capture selected answer
 	let selectedAns = $thisSpan.children().data('aid');
+
+	//capture the qn Id of the answer
 	let questionId = $thisSpan.siblings("h4").data('id');
-	triviaGame.checkAnswers(questionId, selectedAns);
+
+	//if same question is answered again replace it in the array	
+	let index = answeredCountArr.findIndex(function(el){
+		return el.id == questionId;
+	});
+
+	if(index > -1){
+		answeredCountArr.splice(index, 1);
+	}
+
+	//save the questions answered in an array
+	answeredCountArr.push({id: questionId, ans : selectedAns});
+
+});
+
+$('.submitA').on('click', function(){
+	stopwatch.stop();
+	displayResults();
+});
+
+$('#replay').on('click', function(){
+	reset();
 });
 
 setTimeout(function(){
 	stopwatch.stop();
+	
 	let returnVal = triviaGame.getResults.bind(triviaGame);
 	$('.results-body').html(returnVal);
 	$('#resultsModal').modal('show');
 }, 1000 * 120);
 
-triviaGame.init();
-stopwatch.start();
+//begin game
+init();
 
 });
