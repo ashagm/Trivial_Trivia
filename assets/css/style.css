@@ -82,6 +82,12 @@ body{
     border-radius: 20px
 }
 
+.results-body{
+	background: url('../images/bg-3.jpg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+
 #footer{
 	color : #fff;
 	margin-top: 70px;
